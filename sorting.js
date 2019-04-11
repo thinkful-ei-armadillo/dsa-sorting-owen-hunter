@@ -38,11 +38,6 @@ function merge(left, right, array) {
 //   mergeSort([21, 1, 26, 45, 29, 28, 2, 9, 16, 49, 39, 27, 43, 34, 46, 40])
 // );
 
-function swap(array, i, j) {
-  const tmp = array[i];
-  array[i] = array[j];
-  array[j] = tmp;
-}
 function quickSort(array, start = 0, end = array.length) {
   if (start >= end) {
     return array;
@@ -106,6 +101,86 @@ function oneTime(arr, highest = 49) {
   return results;
 }
 
-console.log(
-  oneTime([21, 26, 45, 1, 29, 28, 2, 9, 16, 39, 27, 43, 49, 34, 46, 40])
-);
+// console.log(
+//   oneTime([21, 26, 45, 1, 29, 28, 2, 9, 16, 39, 27, 43, 49, 34, 46, 40])
+// );
+
+// write an algorithm to shuffle an array in place (without creating a new array)
+
+const swap = (arr, i, j) => {
+  const tmp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = tmp;
+};
+
+const shuffle = arr => {
+  let j = 1;
+  for (let i = 0; i < arr.length; i++) {
+    let randomDecision = Math.floor(Math.random() * 4);
+    if (randomDecision === 1) {
+      const tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+    if (randomDecision === 2) {
+      i++;
+    }
+    if (randomDecision === 3) {
+      j++;
+    }
+  }
+  return arr;
+};
+let arr = [21, 26, 45, 1, 29, 28, 2, 9, 16, 39, 27, 43, 49, 34, 46, 40];
+// console.log(shuffle(arr));
+
+// sorting books
+// 20 books for alphabetical order
+//
+
+let books = [
+  'war and peace',
+  'lotr',
+  'mandela',
+  'book',
+  'brown and ale',
+  'Brown and ale'
+];
+
+const sortBooks = books => {
+  // convert books to array of objects, with indexes as keys
+  let booksObjects = [];
+  booksObjects = books.map((book, index) => (book = { key: index, book }));
+  // store second array with all titles.toLowerCase
+  // sort based on titles
+  // change title based on key
+  // check first index of new array, newarray[key] ===
+  // for sortedTitles, access the original array key/title combination
+  let titles = [];
+  for (let i = 0; i < booksObjects.length; i++) {
+    titles.push({
+      key: booksObjects[i].key,
+      book: booksObjects[i].book.toLowerCase()
+    });
+  }
+  // console.log(titles);
+  titles.sort(function(a, b) {
+    if (a.book < b.book) {
+      return -1;
+    }
+    if (a.book > b.book) {
+      return 1;
+    }
+    return 0;
+  });
+  let sortedTitles = [];
+  for (let i = 0; i < titles.length; i++) {
+    for (let j = 0; j < booksObjects.length; j++) {
+      if (titles[i].key === booksObjects[j].key) {
+        sortedTitles.push(booksObjects[j].book);
+      }
+    }
+  }
+  return console.log(sortedTitles);
+};
+sortBooks(books);
